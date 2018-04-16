@@ -62,7 +62,7 @@ class Select2 extends InputWidget {
 	/**
 	 * Select2 Bootstrap theme
 	 */
-	const THEME_BOOTSTRAP = 'bootstrap';
+	const THEME_BOOTSTRAP = 'bootstrap4';
 
 	/**
 	 * @var array $data the option data items. The array keys are option values, and the array values are the
@@ -95,7 +95,7 @@ class Select2 extends InputWidget {
 	 */
 	public function run() {
 		parent::run();
-		$this->renderWidget();
+		return $this->renderWidget();
 	}
 
 	/**
@@ -114,6 +114,10 @@ class Select2 extends InputWidget {
 		}
 		if ($this->disabled) {
 			$this->clientOptions['disabled'] = true;
+		}
+		if (isset($this->options['placeholder'])) {
+			$this->clientOptions['placeholder'] = ArrayHelper::remove($this->options, 'placeholder');
+			ArrayHelper::setValue($this->options, 'data.placeholder', $this->clientOptions['placeholder']);
 		}
 		if (!isset($this->data)) {
 			if (!isset($this->value) && !isset($this->initValueText)) {

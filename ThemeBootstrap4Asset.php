@@ -24,7 +24,7 @@ class ThemeBootstrap4Asset extends AssetBundle {
 	 * @var array list of CSS files that this bundle contains.
 	 */
 	public $css = [
-		'css/select2-bootstrap4.min.css'
+		'select2-bootstrap4.min.css'
 	];
 
 	/**
