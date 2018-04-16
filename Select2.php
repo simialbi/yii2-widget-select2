@@ -91,7 +91,7 @@ class Select2 extends InputWidget {
 	public $hideSearch = false;
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	public function run() {
 		parent::run();
