@@ -22,7 +22,7 @@ use yii\web\JsExpression;
  * echo Select2::widget([
  *     'model' => $model,
  *     'attribute' => 'my_select',
- * 	   'data' => ['key' => 'value', 'foo' => 'bar']
+ *     'data' => ['key' => 'value', 'foo' => 'bar']
  * ]);
  * ```
  *
@@ -32,7 +32,7 @@ use yii\web\JsExpression;
  * echo Select2::widget([
  *     'name'  => 'my_select',
  *     'value'  => $value,
- * 	   'data' => ['key' => 'value', 'foo' => 'bar']
+ *     'data' => ['key' => 'value', 'foo' => 'bar']
  * ]);
  * ```
  *
@@ -41,7 +41,7 @@ use yii\web\JsExpression;
  *
  * ```php
  * <?= $form->field($model, 'my_select')->widget(\simialbi\yii2\select2\Select2::class, [
- * 		'data' => ['key' => 'value', 'foo' => 'bar']
+ *     'data' => ['key' => 'value', 'foo' => 'bar']
  * ]) ?>
  * ```
  *
@@ -52,6 +52,19 @@ use yii\web\JsExpression;
  */
 class Select2 extends InputWidget {
 	/**
+	 * Select2 default theme
+	 */
+	const THEME_DEFAULT = 'default';
+	/**
+	 * Select2 classic theme
+	 */
+	const THEME_CLASSIC = 'classic';
+	/**
+	 * Select2 Bootstrap theme
+	 */
+	const THEME_BOOTSTRAP = 'bootstrap';
+
+	/**
 	 * @var array $data the option data items. The array keys are option values, and the array values are the
 	 * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
 	 * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you
@@ -61,7 +74,11 @@ class Select2 extends InputWidget {
 	/**
 	 * @var string the theme name to be used for styling the Select2.
 	 */
-	public $theme = 'default';
+	public $theme = self::THEME_DEFAULT;
+	/**
+	 * @var boolean whether input is to be disabled
+	 */
+	public $disabled = false;
 	/**
 	 * @var string|array, the displayed text in the dropdown for the initial value when you do not set or provide
 	 * `data` (e.g. using with ajax). If options['multiple'] is set to `true`, you can set this as an array of text
@@ -95,6 +112,9 @@ class Select2 extends InputWidget {
 		if ($this->hideSearch) {
 			$this->clientOptions['minimumResultsForSearch'] = new JsExpression('Infinity');
 		}
+		if ($this->disabled) {
+			$this->clientOptions['disabled'] = true;
+		}
 		if (!isset($this->data)) {
 			if (!isset($this->value) && !isset($this->initValueText)) {
 				$this->data = [];
@@ -111,6 +131,10 @@ class Select2 extends InputWidget {
 		Html::addCssClass($this->options, 'form-control');
 		$html = $this->renderInput();
 		$this->registerPlugin('select2');
+
+		if ($this->theme === self::THEME_BOOTSTRAP) {
+			ThemeBootstrap4Asset::register($this->view);
+		}
 
 		return $html;
 	}

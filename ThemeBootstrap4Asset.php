@@ -6,13 +6,15 @@
 
 namespace simialbi\yii2\select2;
 
+use simialbi\yii2\web\AssetBundle;
+
 /**
  * Asset bundle for the bootstrap 4 theme for [[Select2]] Widget.
  *
  * @author Simon Karlen <simi.albi@gmail.com>
  * @since 1.0
  */
-class ThemeBootstrap4Asset {
+class ThemeBootstrap4Asset extends AssetBundle {
 	/**
 	 * @var string the directory that contains the source asset files for this asset bundle.
 	 */
