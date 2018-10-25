@@ -1,42 +1,53 @@
 {
-	"name": "simialbi/yii2-widget-select2",
-	"description": "Yii2 wrapper for the Select2 jQuery plugin",
-	"keywords": ["yii2", "yii2-widgets", "select2", "dropdown", "widget"],
-	"homepage": "https://github.com/simialbi/yii2-widget-select2#readme",
-	"type": "yii2-extension",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Kartik Visweswaran",
-			"email": "kartikv2@gmail.com",
-			"homepage": "http://www.krajee.com/"
-		},
-		{
-			"name": "Simon Karlen",
-			"email": "simi.albi@gmail.com"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/simialbi/yii2-widget-select2/issues",
-		"source": "https://github.com/simialbi/yii2-widget-select2"
-	},
-	"require": {
-		"php": ">=5.6.0",
-		"yiisoft/yii2": "~2.0",
-		"simialbi/yii2-simialbi-base": "^0.2",
-		"bower-asset/select2": "~4.0",
-		"bower-asset/select2-bootstrap4-theme": "~1.0"
-	},
-	"suggest": {
-		"yiisoft/yii2-bootstrap4": "Bootstrap 4 implementation and theme"
-	},
-	"config": {
-		"process-timeout": 1800,
-		"fxp-asset": {
-			"enable": false
-		}
-	},
-	"autoload": {
-		"psr-4": { "simialbi\\yii2\\select2\\": "" }
-	}
+  "name": "simialbi/yii2-widget-select2",
+  "description": "Yii2 wrapper for the Select2 jQuery plugin",
+  "keywords": [
+    "yii2",
+    "yii2-widgets",
+    "select2",
+    "dropdown",
+    "widget"
+  ],
+  "homepage": "https://github.com/simialbi/yii2-widget-select2#readme",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kartik Visweswaran",
+      "email": "kartikv2@gmail.com",
+      "homepage": "http://www.krajee.com/"
+    },
+    {
+      "name": "Simon Karlen",
+      "email": "simi.albi@gmail.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/simialbi/yii2-widget-select2/issues",
+    "source": "https://github.com/simialbi/yii2-widget-select2"
+  },
+  "require": {
+    "php": ">=5.6.0",
+    "yiisoft/yii2": "~2.0",
+    "simialbi/yii2-simialbi-base": "*",
+    "bower-asset/select2": "~4.0",
+    "bower-asset/select2-bootstrap4-theme": "~1.0"
+  },
+  "require-dev": {
+    "yiisoft/yii2-coding-standards": "~2.0"
+  },
+  "suggest": {
+    "yiisoft/yii2-bootstrap4": "Bootstrap 4 implementation and theme"
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enable": false
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "simialbi\\yii2\\select2\\": ""
+    }
+  }
 }

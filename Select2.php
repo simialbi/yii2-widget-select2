@@ -50,112 +50,116 @@ use yii\web\JsExpression;
  * @since 1.0
  * @see https://github.com/select2/select2
  */
-class Select2 extends InputWidget {
-	/**
-	 * Select2 default theme
-	 */
-	const THEME_DEFAULT = 'default';
-	/**
-	 * Select2 classic theme
-	 */
-	const THEME_CLASSIC = 'classic';
-	/**
-	 * Select2 Bootstrap theme
-	 */
-	const THEME_BOOTSTRAP = 'bootstrap4';
+class Select2 extends InputWidget
+{
+    /**
+     * Select2 default theme
+     */
+    const THEME_DEFAULT = 'default';
+    /**
+     * Select2 classic theme
+     */
+    const THEME_CLASSIC = 'classic';
+    /**
+     * Select2 Bootstrap theme
+     */
+    const THEME_BOOTSTRAP = 'bootstrap4';
 
-	/**
-	 * @var array $data the option data items. The array keys are option values, and the array values are the
-	 * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
-	 * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you
-	 * have a list of data models, you may convert them into the format described above using [[ArrayHelper::map()]].
-	 */
-	public $data;
-	/**
-	 * @var string the theme name to be used for styling the Select2.
-	 */
-	public $theme = self::THEME_DEFAULT;
-	/**
-	 * @var boolean whether input is to be disabled
-	 */
-	public $disabled = false;
-	/**
-	 * @var string|array, the displayed text in the dropdown for the initial value when you do not set or provide
-	 * `data` (e.g. using with ajax). If options['multiple'] is set to `true`, you can set this as an array of text
-	 * descriptions for each item in the dropdown `value`.
-	 */
-	public $initValueText;
-	/**
-	 * @var boolean whether to hide the search control and render it as a simple select.
-	 */
-	public $hideSearch = false;
+    /**
+     * @var array $data the option data items. The array keys are option values, and the array values are the
+     * corresponding option labels. The array can also be nested (i.e. some array values are arrays too). For each
+     * sub-array, an option group will be generated whose label is the key associated with the sub-array. If you
+     * have a list of data models, you may convert them into the format described above using [[ArrayHelper::map()]].
+     */
+    public $data;
+    /**
+     * @var string the theme name to be used for styling the Select2.
+     */
+    public $theme = self::THEME_DEFAULT;
+    /**
+     * @var boolean whether input is to be disabled
+     */
+    public $disabled = false;
+    /**
+     * @var string|array, the displayed text in the dropdown for the initial value when you do not set or provide
+     * `data` (e.g. using with ajax). If options['multiple'] is set to `true`, you can set this as an array of text
+     * descriptions for each item in the dropdown `value`.
+     */
+    public $initValueText;
+    /**
+     * @var boolean whether to hide the search control and render it as a simple select.
+     */
+    public $hideSearch = false;
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function run() {
-		parent::run();
-		return $this->renderWidget();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function run()
+    {
+        parent::run();
+        return $this->renderWidget();
+    }
 
-	/**
-	 * Initializes and renders the widget
-	 */
-	public function renderWidget() {
-		$this->clientOptions['theme'] = $this->theme;
-		$multiple                     = ArrayHelper::remove($this->clientOptions, 'multiple', false);
-		$multiple                     = ArrayHelper::getValue($this->options, 'multiple', $multiple);
-		$this->options['multiple']    = $multiple;
-		if (empty($this->clientOptions['width'])) {
-			$this->clientOptions['width'] = '100%';
-		}
-		if ($this->hideSearch) {
-			$this->clientOptions['minimumResultsForSearch'] = new JsExpression('Infinity');
-		}
-		if ($this->disabled) {
-			$this->clientOptions['disabled'] = true;
-		}
-		if (isset($this->options['placeholder'])) {
-			$this->clientOptions['placeholder'] = ArrayHelper::remove($this->options, 'placeholder');
-			ArrayHelper::setValue($this->options, 'data.placeholder', $this->clientOptions['placeholder']);
-		}
-		if (!isset($this->data)) {
-			if (!isset($this->value) && !isset($this->initValueText)) {
-				$this->data = [];
-			} else {
-				if ($multiple) {
-					$key = isset($this->value) && is_array($this->value) ? $this->value : [];
-				} else {
-					$key = isset($this->value) ? $this->value : '';
-				}
-				$val        = isset($this->initValueText) ? $this->initValueText : $key;
-				$this->data = $multiple ? array_combine((array)$key, (array)$val) : [$key => $val];
-			}
-		}
-		Html::addCssClass($this->options, 'form-control');
-		$html = $this->renderInput();
-		$this->registerPlugin('select2');
+    /**
+     * Initializes and renders the widget
+     */
+    public function renderWidget()
+    {
+        $this->clientOptions['theme'] = $this->theme;
+        $multiple = ArrayHelper::remove($this->clientOptions, 'multiple', false);
+        $multiple = ArrayHelper::getValue($this->options, 'multiple', $multiple);
+        $this->options['multiple'] = $multiple;
+        if (empty($this->clientOptions['width'])) {
+            $this->clientOptions['width'] = '100%';
+        }
+        if ($this->hideSearch) {
+            $this->clientOptions['minimumResultsForSearch'] = new JsExpression('Infinity');
+        }
+        if ($this->disabled) {
+            $this->clientOptions['disabled'] = true;
+        }
+        if (isset($this->options['placeholder'])) {
+            $this->clientOptions['placeholder'] = ArrayHelper::remove($this->options, 'placeholder');
+            ArrayHelper::setValue($this->options, 'data.placeholder', $this->clientOptions['placeholder']);
+        }
+        if (!isset($this->data)) {
+            if (!isset($this->value) && !isset($this->initValueText)) {
+                $this->data = [];
+            } else {
+                if ($multiple) {
+                    $key = isset($this->value) && is_array($this->value) ? $this->value : [];
+                } else {
+                    $key = isset($this->value) ? $this->value : '';
+                }
+                $val = isset($this->initValueText) ? $this->initValueText : $key;
+                $this->data = $multiple ? array_combine((array)$key, (array)$val) : [$key => $val];
+            }
+        }
+        Html::addCssClass($this->options, 'form-control');
+        $html = $this->renderInput();
+        $this->registerPlugin('select2');
 
-		if ($this->theme === self::THEME_BOOTSTRAP) {
-			ThemeBootstrap4Asset::register($this->view);
-		}
+        if ($this->theme === self::THEME_BOOTSTRAP) {
+            ThemeBootstrap4Asset::register($this->view);
+        }
 
-		return $html;
-	}
+        return $html;
+    }
 
-	/**
-	 * Renders the source Input for the Select2 plugin. Graceful fallback to a normal HTML select dropdown or text
-	 * input - in case JQuery is not supported by the browser
-	 */
-	protected function renderInput() {
-		$options = $this->options;
+    /**
+     * Renders the source Input for the Select2 plugin. Graceful fallback to a normal HTML select dropdown or text
+     * input - in case JQuery is not supported by the browser
+     */
+    protected function renderInput()
+    {
+        $options = $this->options;
 
-		if ($this->hasModel()) {
-			$input = Html::activeDropDownList($this->model, $this->attribute, $this->data, $options);
-		} else {
-			$input = Html::dropDownList($this->name, $this->value, $this->data, $options);
-		}
+        if ($this->hasModel()) {
+            $input = Html::activeDropDownList($this->model, $this->attribute, $this->data, $options);
+        } else {
+            $input = Html::dropDownList($this->name, $this->value, $this->data, $options);
+        }
 
-		return $input;
-	}
+        return $input;
+    }
 }
